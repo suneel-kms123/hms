@@ -6,4 +6,4 @@ COPY build/libs/*SNAPSHOT.jar /app.jar
 
 EXPOSE 8080
 # Run the service
-CMD ["java", "-jar", "app.jar"]
+CMD ["java", "-jar", "/app.jar"]
