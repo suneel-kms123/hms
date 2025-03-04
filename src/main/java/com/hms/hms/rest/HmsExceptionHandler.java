@@ -10,6 +10,11 @@ public class HmsExceptionHandler {
 
     @ExceptionHandler(MyResourceNotFoundException.class)
     public ResponseEntity<Object> handleNotFoundException(MyResourceNotFoundException exception) {
-        return new ResponseEntity<>("Error" + exception.getMessage(), HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>("Error " + exception.getMessage(), HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity<Object> handleRuntimeException(RuntimeException exception) {
+        return new ResponseEntity<>("Error " + exception.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
