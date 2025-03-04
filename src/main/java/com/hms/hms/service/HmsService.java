@@ -12,6 +12,7 @@ public class HmsService {
     FacilityRepository facilityRepository;
 
     public List<String> getFacilities(String city, String street) {
-
+        return (List<String>) facilityRepository.findByCityInAndStreetIn(List.of(city),
+                List.of(street)).orElseThrow(() -> new RuntimeException("No hospital found"));
     }
 }
