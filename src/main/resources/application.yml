@@ -4,7 +4,9 @@ spring:
     datasource:
         url: jdbc:postgresql://localhost:5432/databaseHms
         username: userHms
-        password: $password
+        password: hms123
         driver-class-name: org.postgresql.Driver
-        jdbcUrl: jdbc:postgresql://localhost:5432/databaseHms
+        hikari:
+            jdbc-url: jdbc:postgresql://localhost:5432/databaseHms
+            driver-class-name: org.postgresql.Driver
 
