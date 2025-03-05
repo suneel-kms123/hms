@@ -10,9 +10,9 @@ spec:
     storage: 2Gi
   accessModes:
     - ReadWriteOnce
-  persistentVolumeReclaimPolicy: Retain
+  persistentVolumeReclaimPolicy: Delete
   volumeMode: Filesystem
-  storageClassName: slow
+  storageClassName: local-storage
   local:
     path: /
   nodeAffinity:
@@ -30,7 +30,7 @@ kind: PersistentVolumeClaim
 metadata:
   name: postgres-pv-claim
 spec:
-  storageClassName: slow
+  storageClassName: local-storage
   volumeMode: Filesystem
   accessModes:
     - ReadWriteOnce

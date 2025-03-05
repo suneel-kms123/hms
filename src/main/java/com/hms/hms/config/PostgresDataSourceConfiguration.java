@@ -23,10 +23,17 @@ public class PostgresDataSourceConfiguration {
     public DataSource dataSource() {
 
         HikariConfig hikariConfig=new HikariConfig();
-        hikariConfig.setJdbcUrl(dataSourceProperties.getUrl());
-        hikariConfig.setUsername(dataSourceProperties.getUsername());
-        hikariConfig.setPassword(dataSourceProperties.getPassword());
-        hikariConfig.setDriverClassName(dataSourceProperties.getDriverClassName());
+        System.out.println("dataSourceProperties.getUrl() = " + dataSourceProperties.getUrl());
+        hikariConfig.setJdbcUrl(dataSourceProperties.getUrl().trim());
+        hikariConfig.setUsername(dataSourceProperties.getUsername().trim());
+        hikariConfig.setPassword(dataSourceProperties.getPassword().trim());
+        hikariConfig.setDriverClassName(dataSourceProperties.getDriverClassName().trim());
+        System.out.println(hikariConfig.getJdbcUrl().trim());
+        System.out.println(hikariConfig.getUsername().trim());
+        System.out.println(hikariConfig.getPassword().trim());
+        System.out.println(hikariConfig.getDriverClassName().trim());
+        
+
         return new HikariDataSource(hikariConfig);
     }
 }

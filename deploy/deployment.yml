@@ -9,6 +9,13 @@ spec:
     matchLabels:
       app: myapp
   replicas: 1
+  # strategy:
+  #   type: RollingUpdate
+  #   rollingUpdate:
+  #     maxSurge: 1
+  #     maxUnavailable: 1
+  # strategy:
+  #  type: Recreate
   template:
     metadata:
       labels:
@@ -26,7 +33,7 @@ spec:
             memory: "128Mi"
             cpu: "500m"
         ports:
-        - containerPort: 3000
+        - containerPort: 5432
         env:
         - name: POSTGRES_DB
           valueFrom:
@@ -55,7 +62,7 @@ spec:
               key: name
         volumeMounts:
         - name: postgres-persistent-storage
-          mountPath: /var/lib/postgresql/data
+          mountPath: /mnt
       volumes:
       - name: postgres-persistent-storage
         persistentVolumeClaim:

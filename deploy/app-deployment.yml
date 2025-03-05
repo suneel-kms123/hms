@@ -1,0 +1,60 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myspring
+spec:
+  selector:
+    matchLabels:
+      app: myspring
+  template:
+    metadata:
+      labels:
+        app: myspring
+    spec:
+      containers:
+      - name: myspring
+        image: suneelkms123/hms:1.33
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 8080
+        env:
+        - name: DB_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: postgres-config
+              key: host
+        - name: DB_NAME
+          valueFrom:
+            secretKeyRef:
+              name: postgres-secret
+              key: POSTGRES_DB
+        - name: POSTGRES_USER
+          valueFrom:
+            secretKeyRef:
+              name: postgres-secret
+              key: POSTGRES_USER
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: postgres-secret
+              key: POSTGRES_PASSWORD
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: myspring
+spec:
+  type: NodePort
+  selector:
+    app: myspring
+  ports:
+  - port: 8080
+    targetPort: 8080
+    nodePort: 30001
+    protocol: TCP
+
