@@ -8,6 +8,10 @@ plugins {
 group = 'com.hms'
 version = '0.0.1-SNAPSHOT'
 
+bootRun{
+	systemProperties(System.properties)
+}
+
 java {
 	toolchain {
 		languageVersion = JavaLanguageVersion.of(17)

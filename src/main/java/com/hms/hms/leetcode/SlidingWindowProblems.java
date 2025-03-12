@@ -2,7 +2,7 @@ package com.hms.hms.leetcode;
 
 import java.util.*;
 
-public class SlidingWindowProblems{
+public class SlidingWindowProblems {
 
     public static void main(String[] args) {
         solveProblems(10, 19);
@@ -10,7 +10,7 @@ public class SlidingWindowProblems{
 
     private static int[] solveProblems(int left, int right) {
         List<Integer> primes = new ArrayList<>();
-        if ( left > right) return new int[]{-1, -1};
+        if (left > right) return new int[]{-1, -1};
         for (int i = left; i <= right; i++) {
             if (isPrime(i)) {
                 System.out.println(i);
@@ -20,7 +20,6 @@ public class SlidingWindowProblems{
 
         //TODO improve naming convention
         //TODO think to solve with minimum data structure not collection all the time
-
 
 
         if (primes.size() < 2) return new int[]{-1, -1};
@@ -64,4 +63,5 @@ public class SlidingWindowProblems{
         }
         return true;
     }
+
 }
