@@ -1,6 +1,10 @@
 package com.hms.hms.leetcode;
 
+import java.io.FileReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class SlidingWindowProblems {
 
@@ -63,5 +67,49 @@ public class SlidingWindowProblems {
         }
         return true;
     }
+
+    public void handleExceptions() {
+        try (Scanner scan = new Scanner(System.in)) {
+            int x = scan.nextInt();
+            int y = scan.nextInt();
+
+            int z = x / y;
+
+            if (z > 0) {
+                System.out.println(z);
+            }
+        } catch (Exception e) {
+
+            System.out.println(e.getClass().getCanonicalName());
+        }
+    }
+
+    /*
+     * Complete the 'minOperations' function below.
+     *
+     * The function is expected to return an INTEGER.
+     * The function accepts following parameters:
+     *  1. INTEGER_ARRAY arr
+     *  2. INTEGER threshold
+     *  3. INTEGER d
+     */
+
+    public static int minOperations(List<Integer> arr, int threshold, int d) {
+        int count=0;
+        for (int i =0; i< arr.size(); i++) {
+            int k = arr.get(i);
+            while(threshold > 0) {
+                k=Math.abs(k/d);
+                threshold--;
+            }
+            if (arr.contains(k)) count++;
+
+            arr.set(i, k);
+        }
+
+        return arr.size() - new HashSet<>(arr).size();
+
+    }
+
 
 }

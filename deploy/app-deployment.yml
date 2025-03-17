@@ -12,13 +12,37 @@ spec:
       labels:
         app: myspring
     spec:
+      strategy:
+        type: 
+          - RollingUpdate
+        maxSurge: 1
+        maxUnavailable: 1        
       containers:
       - name: myspring
         image: suneelkms123/hms:1.33
         resources:
-          limits:
+          requests:
             memory: "128Mi"
-            cpu: "500m"
+            cpu: "200m"
+          limits:
+            memory: "512Mi" 
+            cpu: "1Gi"
+        readinessProbe:
+          httpGet:
+            path: /healthz
+            port: 8080
+          initialDelaySeconds: 10
+          periodSeconds: 5
+          timeoutSeconds: 30
+          failureThreshold: 3
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: 8080
+          initialDelaySeconds: 10
+          periodSeconds: 5
+          timeoutSeconds: 30
+          failureThreshold: 3
         ports:
         - containerPort: 8080
         env:
