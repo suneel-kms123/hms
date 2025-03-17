@@ -1,0 +1,50 @@
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: developer
+rules:
+  - apiGroups: [""]
+    resources: ["pods"]
+    verbs: ["get", "list", "create"]
+  - apiGroups: [""]
+    resources: ["configMap"]
+  
+--- 
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: dev-user-role-binding
+subjects:
+  - kind: User
+    name: dev-user
+    apiGroup: rbac.authorization.k8s.io/v1
+roleRef:
+  apiGroup: rbac.authorization.k8s.io/v1
+  kind: Role
+  name: developer
+
+#k auth can-i create deployments
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: clusterRole-Developer
+rules:
+  - verbs: ["get"]
+    apiGroups: [""]
+    resources: ["nodes"]
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: CLusterRoleBinding
+metadata:
+  name: clusterRole-Developer
+subjects:
+  - kind: User
+    name: clusterRole-developer
+    apiGroup: rbac.authorization.k8s.io/v1
+roleRef:
+  apiGroup: rbac.authorization.k8s.io/v1
+  kind: ClusterRole
+  name: clusterRole-Developer
